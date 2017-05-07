@@ -106,9 +106,6 @@
                         <paper-item>{{item.task}}<i style="margin-left: 5px;">{{item.user}}</i></paper-item>
                     </template>
                 </paper-menu>
-                <paper-material id="made-with" elevation="2">
-                    <a href="http://www.pubnub.com/"><img src="../img/made-with.png"/></a>
-                </paper-material>
             </paper-header-panel>
             <paper-header-panel main class="main-panel">
                 <paper-toolbar>
@@ -140,12 +137,12 @@
             </paper-header-panel>
         </paper-drawer-panel> 
         <core-pubnub 
-            publish_key="pub-c-7fad26fe-6c38-4940-b9c3-fbd19a9633af" 
-            subscribe_key="sub-c-30c17e1a-0007-11e5-a8ef-0619f8945a4f">
-            <core-pubnub-publish id="pub" channel="todo" message="Hello"> </core-pubnub-publish>
-            <core-pubnub-subscribe id="sub" channel="todo" messages="{{messages}}" presence="{{present}}" on-callback="subscribeCallback"></core-pubnub-subscribe>   
-        </core-pubnub> 
-    </template>
+        publish_key="pub-c-7fad26fe-6c38-4940-b9c3-fbd19a9633af" 
+        subscribe_key="sub-c-30c17e1a-0007-11e5-a8ef-0619f8945a4f">
+        <core-pubnub-publish id="pub" channel="todo" message="Hello"> </core-pubnub-publish>
+        <core-pubnub-subscribe id="sub" channel="todo" messages="{{messages}}" presence="{{present}}" on-callback="subscribeCallback"></core-pubnub-subscribe>   
+    </core-pubnub> 
+</template>
 </dom-module>
 <script> 
     Polymer({
@@ -196,6 +193,12 @@
     
     ready: function(e){
         this.addEventListener('complete', this.handleComplete);
+        this.addEventListener('edit', this.handleEdit);
+        this.addEventListener('presence', presChange);
+        function presChange(e){
+            var pres = this.present.pop()
+            this.$.here.innerHTML = pres.occupancy;
+        }
     },
 
     subscribeCallback: function(e){
