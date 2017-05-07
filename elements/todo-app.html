@@ -138,7 +138,8 @@
         </paper-drawer-panel> 
         <core-pubnub 
         publish_key="pub-c-7fad26fe-6c38-4940-b9c3-fbd19a9633af" 
-        subscribe_key="sub-c-30c17e1a-0007-11e5-a8ef-0619f8945a4f">
+        subscribe_key="sub-c-30c17e1a-0007-11e5-a8ef-0619f8945a4f"
+        ssl="true">
         <core-pubnub-publish id="pub" channel="todo" message="Hello"> </core-pubnub-publish>
         <core-pubnub-subscribe id="sub" channel="todo" messages="{{messages}}" presence="{{present}}" on-callback="subscribeCallback"></core-pubnub-subscribe>   
     </core-pubnub> 
