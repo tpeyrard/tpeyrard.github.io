@@ -16,7 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.0.0",
+    "polymer": "Polymer/polymer#^1.9.1",
     "pubnub-element": "^4.0.1",
     "paper-item": "^1.2.2",
     "paper-header-panel": "^1.1.7",
