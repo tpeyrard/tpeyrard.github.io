@@ -1,0 +1,26 @@
+{
+  "name": "todo",
+  "homepage": "https://github.com/tpeyrard/tpeyrard.github.io",
+  "description": "Real Time To-Do App. From https://scotch.io/tutorials/build-a-real-time-polymer-to-do-app",
+  "main": "index.html",
+  "authors": [
+    "Thomas PEYRARD"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "pubnub-element": "^4.0.1",
+    "paper-item": "^1.2.2",
+    "paper-header-panel": "^1.1.7",
+    "paper-icon-button": "^1.1.6",
+    "paper-toolbar": "^1.1.7"
+  }
+}
