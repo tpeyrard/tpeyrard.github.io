@@ -1,19 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <link href="../bower_components/polymer/polymer.html" rel="import">
-    <link href="../elements/todo-element.html" rel="import">
-    <link href="../bower_components/paper-drawer-panel/paper-drawer-panel.html" rel="import">
-    <link href="../bower_components/paper-header-panel/paper-header-panel.html" rel="import">
-    <link href="../bower_components/paper-toolbar/paper-toolbar.html" rel="import">
-    <link href="../bower_components/paper-icon-button/paper-icon-button.html" rel="import">
-    <link href="../bower_components/paper-material/paper-material.html" rel="import">
-    <link href="../bower_components/paper-menu/paper-menu.html" rel="import"> 
-    <link href="../bower_components/paper-item/paper-item.html" rel="import">
-    <link href="../bower_components/paper-input/paper-input.html" rel="import">
-    <link href="../bower_components/iron-icons/iron-icons.html" rel="import">
-    <link href="../bower_components/pubnub-element/pubnub-element.html" rel="import">
-</head>
+<link href="../bower_components/polymer/polymer.html" rel="import">
+<link href="../elements/todo-element.html" rel="import">
+<link href="../bower_components/paper-drawer-panel/paper-drawer-panel.html" rel="import">
+<link href="../bower_components/paper-header-panel/paper-header-panel.html" rel="import">
+<link href="../bower_components/paper-toolbar/paper-toolbar.html" rel="import">
+<link href="../bower_components/paper-icon-button/paper-icon-button.html" rel="import">
+<link href="../bower_components/paper-material/paper-material.html" rel="import">
+<link href="../bower_components/paper-menu/paper-menu.html" rel="import"> 
+<link href="../bower_components/paper-item/paper-item.html" rel="import">
+<link href="../bower_components/paper-input/paper-input.html" rel="import">
+<link href="../bower_components/iron-icons/iron-icons.html" rel="import">
+<link href="../bower_components/pubnub-element/pubnub-element.html" rel="import">
+
 <dom-module id="todo-app">
     <style>
         .list {
@@ -191,7 +188,7 @@
         this.$.pub.message = itm;
         this.$.pub.publish();
     },
-    
+
     handleEdit: function(e){
         var idx = findWithAttr(this.todo, 'rid', e.target.rid);
         var itm = this.todo[idx];
@@ -221,7 +218,7 @@
                 break;
                 case "done":
                 var idx = findWithAttr(this.todo, 'rid',item.rid);
-                
+
                 if (idx == -1){return;}
                 var itm = this.splice('todo', idx, 1)[0];
                 itm.task = item.task;
@@ -254,4 +251,3 @@ function findWithAttr(array, attr, value) { //Finds object index in array by its
     }
 }
 </script>
-</html>
