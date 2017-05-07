@@ -13,27 +13,27 @@
       .todo {
         padding: 10px;
       }
-      
+
       paper-checkbox {
         float: right;
         margin: 2vh 2vw;
       }
-      
+
       paper-button {
         background: #ccc;
       }
-      
+
       paper-fab {
         position: absolute;
         bottom: 3vh;
         right: 3vw;
         background: #4DD0E1;
       }
-      
+
       .done {
         background: green;
       }
-      
+
       .info {
         font-style: italic;
         font-size: 14px;
@@ -41,7 +41,7 @@
         padding-top: 0;
         padding-bottom: 0;
       }
-      
+
       paper-material {
         background-color: #fff;
         max-width: 640px;
@@ -49,15 +49,15 @@
         margin: 25px auto;
         position: relative;
       }
-      
+
       .info span {
         margin-left: 5px;
       }
-      
+
       paper-input {
         margin: 0 2vw;
       }
-      
+
     </style>
     <template>
       <paper-material class="todo" elevation="1">
@@ -107,6 +107,9 @@
       },
       doEdit: function(e){
         this.editing=!this.editing;
-      },
-    });
-  </script>
+        if (!this.editing){
+         this.fire('edit', {rid:this.rid, task:this.task}); 
+       }
+     },
+   });
+ </script>
