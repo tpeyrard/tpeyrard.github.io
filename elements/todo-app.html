@@ -90,39 +90,61 @@
         }
         
     </style>
-    <template> 
-        <paper-menu class="list">
-            <template is="dom-if" if="{{!done.length}}">
-                <paper-material>
-                    <paper-item>Completed tasks will appear here!</paper-item>
+    <template>
+        <paper-drawer-panel>
+            <paper-header-panel class="side-panel" drawer>
+                <paper-toolbar>
+                    <paper-item>Completed Tasks</paper-item>
+                </paper-toolbar>
+                <paper-menu id="completed" class="list">
+                    <template is="dom-if" if="{{!done.length}}">
+                        <paper-material class="task-empty">
+                            <paper-item elevation="2">Completed tasks will appear here!</paper-item>
+                        </paper-material>
+                    </template>
+                    <template id="done" is="dom-repeat" items="{{done}}">
+                        <paper-item>{{item.task}}<i style="margin-left: 5px;">{{item.user}}</i></paper-item>
+                    </template>
+                </paper-menu>
+                <paper-material id="made-with" elevation="2">
+                    <a href="http://www.pubnub.com/"><img src="../img/made-with.png"/></a>
                 </paper-material>
-            </template>
-            <template id="done" is="dom-repeat" items="{{done}}">
-                <paper-item>{{item.task}}<i style="margin-left: 5px;">{{item.user}}</i></paper-item>
-            </template>
-        </paper-menu> 
-        <div style="border-left: 1px solid #ccc;">
-            <!-- To create a new Todo -->
-            <paper-material id="todoEntry" elevation="2">
-                <paper-input id="tTask" label="Task"></paper-input>
-                <paper-input id="tUser" char-counter label="Username" maxlength="16"></paper-input> 
-                <paper-fab icon="icons:add" on-tap="postTask"></paper-fab>
-            </paper-material>
-            <div id="todos">
-                <template is="dom-if" if="{{!todo.length}}">
-                    <paper-material>
-                        <paper-item>No Tasks remain. Updates are Real-Time so stay tuned!</paper-item>
+            </paper-header-panel>
+            <paper-header-panel main class="main-panel">
+                <paper-toolbar>
+                    <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+                    <paper-item>
+                        <iron-icon icon="icons:face"></iron-icon>
+                        <span id="here">0</span>
+                    </paper-item>
+                    <paper-item>Active Tasks</paper-item>
+                </paper-toolbar>
+                <div style="border-left: 1px solid #ccc;">
+                    <!-- To create a new Todo -->
+                    <paper-material id="todoEntry" elevation="2">
+                        <paper-input id="tTask" label="Task"></paper-input>
+                        <paper-input id="tUser" char-counter label="Username" maxlength="16" error="maximum characters exceeded" style="width:75%;display: inline-block" ></paper-input> 
+                        <paper-fab icon="icons:add" on-tap="postTask"></paper-fab>
                     </paper-material>
-                </template>
-                <template id="tasks" is="dom-repeat" items="{{todo}}">
-                    <todo-element user="{{item.user}}" task="{{item.task}}" rid="{{item.rid}}"></todo-element>
-                </template>
-            </div>
-        </div>
-        <core-pubnub publish_key="pub-c-24489ec6-bcd4-4196-bb19-7e97950156cf" subscribe_key="sub-c-b23bedac-3329-11e7-bd21-0619f8945a4f">
-            <core-pubnub-publish id="pub" channel="todo" message="Test"> </core-pubnub-publish>
-            <core-pubnub-subscribe id="sub" channel="todo" messages="{{messages}}" presence="{{present}}" on-callback="subscribeCallback"></core-pubnub-subscribe>  
-        </core-pubnub>
+                    <div id="todos">
+                        <template is="dom-if" if="{{!todo.length}}">
+                            <paper-material class="task-empty">
+                                <paper-item elevation="2">No Tasks remain. Updates are Real-Time so stay tuned!</paper-item>
+                            </paper-material>
+                        </template>
+                        <template id="tasks" is="dom-repeat" items="{{todo}}">
+                            <todo-element user="{{item.user}}" task="{{item.task}}" rid="{{item.rid}}"></todo-element>
+                        </template>
+                    </div>
+                </div>
+            </paper-header-panel>
+        </paper-drawer-panel> 
+        <core-pubnub 
+            publish_key="pub-c-7fad26fe-6c38-4940-b9c3-fbd19a9633af" 
+            subscribe_key="sub-c-30c17e1a-0007-11e5-a8ef-0619f8945a4f">
+            <core-pubnub-publish id="pub" channel="todo" message="Hello"> </core-pubnub-publish>
+            <core-pubnub-subscribe id="sub" channel="todo" messages="{{messages}}" presence="{{present}}" on-callback="subscribeCallback"></core-pubnub-subscribe>   
+        </core-pubnub> 
     </template>
 </dom-module>
 <script> 
