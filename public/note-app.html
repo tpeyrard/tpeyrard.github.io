@@ -5,7 +5,7 @@
 <dom-module id="note-app">
   <template>
     <style include="note-app-shared-styles"></style>
-    
+
     <na-toolbar signed-in="[[signedIn]]" on-sign-out="signOut">
     </na-toolbar>
 
@@ -24,6 +24,18 @@
     <firebase-document id="document" app-name="remote-poker-planning" path="[[editableNoteId]]" data="{{editableNote}}">
     </firebase-document>
 
+    <firebase-query id="query" app-name="remote-poker-planning" path="/notes/[[user.uid]]" data="{{notes}}">
+    </firebase-query>
+
+    <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}">
+    </app-indexeddb-mirror>
+
+    <div class="notes">
+      <template is="dom-repeat" items="[[persistedNotes]]" as="note">
+        <na-note id$="[[note.$key]]" title="[[note.title]]" body="[[note.body]]" on-tap="edit">
+        </na-note>
+      </template>
+    </div>
   </template>
   <script>
     (() => {
@@ -42,20 +54,23 @@
         toEditableId(noteId) {
           return `${this.notesPath}/${noteId}`;
         },
+        get isEditable() {
+          return this.online;
+        },
         signIn() {
           this.$.auth.signInWithPopup();
         },
-        save: function() {
-        if (this.$.document.isNew &&
+        save: function () {
+          if (this.$.document.isNew &&
             (this.editableNote.title ||
-             this.editableNote.body)) {
-          return this.$.document.saveValue(this.notesPath).then(function() {
-            this.$.document.reset();
-          }.bind(this));
-        }
+              this.editableNote.body)) {
+            return this.$.document.saveValue(this.notesPath).then(function () {
+              this.$.document.reset();
+            }.bind(this));
+          }
 
-        return Promise.resolve();
-      }
+          return Promise.resolve();
+        }
       });
     })();
   </script>
