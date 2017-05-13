@@ -44,7 +44,18 @@
         },
         signIn() {
           this.$.auth.signInWithPopup();
+        },
+        save: function() {
+        if (this.$.document.isNew &&
+            (this.editableNote.title ||
+             this.editableNote.body)) {
+          return this.$.document.saveValue(this.notesPath).then(function() {
+            this.$.document.reset();
+          }.bind(this));
         }
+
+        return Promise.resolve();
+      }
       });
     })();
   </script>
